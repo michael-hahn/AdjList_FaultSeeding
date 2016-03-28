@@ -1,0 +1,8 @@
+Mar 28, 2016 2:27:04 PM AdjList$ main
+INFO: Record Lineage time starts at 2016-03-28 14:27:04.047
+Mar 28, 2016 2:27:53 PM AdjList$ main
+INFO: Lineage caught 280498 possible faulty data records
+Mar 28, 2016 2:28:27 PM AdjList$ main
+INFO: Lineage takes 83060383 milliseconds
+Mar 28, 2016 2:28:27 PM AdjList$ main
+INFO: Lineage ends at 2016-03-28 14:28:27.11
