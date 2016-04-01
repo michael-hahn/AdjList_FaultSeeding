@@ -138,88 +138,170 @@ class Test extends userTest[(String, String)] with Serializable {
     return returnValue
     */
 
-    /*
+
     //Use deltaworkflowmanager instead for generic execution
-    val resultRDD = inputRDD.map(s => {
-        val str = s.toString
-        println(str)
-        val index = str.lastIndexOf(",")
-        val content = str.substring(2, index - 1)
-        val index2 = content.indexOf(",")
-        val key = content.substring(0, index2)
-        val value = content.substring(index2 + 1)
-        (key, value)
-      })
+
+    //For the version with goNext
+//    val resultRDD = inputRDD
+//      .groupByKey()
+//      .map(pair => {
+//      var fromList: MutableList[String] = MutableList()
+//      var toList: MutableList[String] = MutableList()
+//      var fromLine = new String()
+//      var toLine = new String()
+//      var vertex = new String()
+//      val itr = pair._2.toIterator
+//      while (itr.hasNext) {
+//        breakable {
+//          val str = itr.next().asInstanceOf[(String, Long)]._1
+//          println("********   " + str + "      ********")
+//          val strLength = str.length
+//          val index = str.indexOf(":")
+//          if (index == -1) {
+//            println("Wrong input: " + str)
+//            break
+//          }
+//          if (index > 6) {
+//            fromLine = str.substring(5, index - 1)
+//          }
+//          if (index + 5 < strLength) {
+//            toLine = str.substring(index + 4, strLength - 1)
+//          }
+//          if (!fromLine.isEmpty) {
+//            val itr2 = new StringTokenizer(fromLine, ",")
+//            while (itr2.hasMoreTokens) {
+//              vertex = new String(itr2.nextToken())
+//              if (!fromList.contains(vertex) && fromList.size < LIMIT) {
+//                fromList += vertex
+//              }
+//            }
+//          }
+//          if (!toLine.isEmpty) {
+//            val itr2 = new StringTokenizer(toLine, ",")
+//            while (itr2.hasMoreTokens) {
+//              vertex = new String(itr2.nextToken())
+//              if (!toList.contains(vertex) && toList.size < LIMIT) {
+//                toList += vertex
+//              }
+//            }
+//          }
+//        }
+//      }
+//      fromList = fromList.sortWith((a, b) => if (a < b) true else false)
+//      toList = toList.sortWith((a, b) => if (a < b) true else false)
+//      var fromList_str = new String("")
+//      var toList_str = new String("")
+//      for (r <- 0 until fromList.size) {
+//        if (fromList_str.equals("")) fromList_str = fromList(r)
+//        else fromList_str = fromList_str + "," + fromList(r)
+//      }
+//      for (r <- 0 until toList.size) {
+//        if (toList_str.equals("")) toList_str = toList(r)
+//        else toList_str = toList_str + "," + toList(r)
+//      }
+//      val outValue = new String("from{" + fromList_str + "}:to{" + toList_str + "}")
+//      (pair._1, outValue)
+//    })
+//      .map(pair => {
+//        val index = pair._2.lastIndexOf(":")
+//        val substr = pair._2.substring(index + 4, pair._2.length - 1)
+//        val ll = substr.split(",")
+//        var value = pair._2
+//        if (ll.contains("VertexID00016770630_31")) {
+//          value += "*"
+//        }
+//        (pair._1, value)
+//      })
+//
+//    val out = resultRDD.collect()
+//
+//    for (o <- out) {
+//      if (o._2.substring(o._2.length - 1).equals("*")) returnValue = true
+//    }
+
+
+    //For version without goNext
+    val resultRDD = inputRDD
+      .flatMap(s => {
+        val listOfEdges: MutableList[(String, String)] = MutableList()
+        val outList = "from{" + s._1 + "}:to{}"
+        var inList = "from{}:to{" + s._2 + "}"
+        val out = Tuple2(s._1, inList)
+        val in = Tuple2(s._2, outList)
+        listOfEdges += out
+        listOfEdges += in
+        })
       .groupByKey()
       .map(pair => {
-      var fromList: MutableList[String] = MutableList()
-      var toList: MutableList[String] = MutableList()
-      var fromLine = new String()
-      var toLine = new String()
-      var vertex = new String()
-      //       var itr:util.Iterator[String] = null
-      //        try {
-      val itr = pair._2.toIterator
-      //       }catch{
-      //         case e:Exception =>
-      //           println("**************************")
-      //       }
-      while (itr.hasNext) {
-        breakable {
-          val str = itr.next()
-          val strLength = str.length
-          val index = str.indexOf(":")
-          if (index == -1) {
-            println("Wrong input: " + str)
-            break
-          }
-          if (index > 6) {
-            fromLine = str.substring(5, index - 1)
-          }
-          if (index + 5 < strLength) {
-            toLine = str.substring(index + 4, strLength - 1)
-          }
-          if (!fromLine.isEmpty) {
-            val itr2 = new StringTokenizer(fromLine, ",")
-            while (itr2.hasMoreTokens) {
-              vertex = new String(itr2.nextToken())
-              if (!fromList.contains(vertex) && fromList.size < LIMIT) {
-                fromList += vertex
+        var fromList: MutableList[String] = MutableList()
+        var toList: MutableList[String] = MutableList()
+        var fromLine = new String()
+        var toLine = new String()
+        var vertex = new String()
+        //       var itr:util.Iterator[String] = null
+        //        try {
+        val itr = pair._2.toIterator
+        //       }catch{
+        //         case e:Exception =>
+        //           println("**************************")
+        //       }
+        while (itr.hasNext) {
+          breakable {
+            val str = itr.next().asInstanceOf[(String, Long)]._1
+//            println("********   " + str + "      ********")
+            val strLength = str.length
+            val index = str.indexOf(":")
+            if (index == -1) {
+              println("Wrong input: " + str)
+              break
+            }
+            if (index > 6) {
+              fromLine = str.substring(5, index - 1)
+            }
+            if (index + 5 < strLength) {
+              toLine = str.substring(index + 4, strLength - 1)
+            }
+            if (!fromLine.isEmpty) {
+              val itr2 = new StringTokenizer(fromLine, ",")
+              while (itr2.hasMoreTokens) {
+                vertex = new String(itr2.nextToken())
+                if (!fromList.contains(vertex) && fromList.size < LIMIT) {
+                  fromList += vertex
+                }
               }
             }
-          }
-          if (!toLine.isEmpty) {
-            val itr2 = new StringTokenizer(toLine, ",")
-            while (itr2.hasMoreTokens) {
-              vertex = new String(itr2.nextToken())
-              if (!toList.contains(vertex) && toList.size < LIMIT) {
-                toList += vertex
+            if (!toLine.isEmpty) {
+              val itr2 = new StringTokenizer(toLine, ",")
+              while (itr2.hasMoreTokens) {
+                vertex = new String(itr2.nextToken())
+                if (!toList.contains(vertex) && toList.size < LIMIT) {
+                  toList += vertex
+                }
               }
             }
           }
         }
-      }
-      fromList = fromList.sortWith((a, b) => if (a < b) true else false)
-      toList = toList.sortWith((a, b) => if (a < b) true else false)
-      var fromList_str = new String("")
-      var toList_str = new String("")
-      for (r <- 0 until fromList.size) {
-        if (fromList_str.equals("")) fromList_str = fromList(r)
-        else fromList_str = fromList_str + "," + fromList(r)
-      }
-      for (r <- 0 until toList.size) {
-        if (toList_str.equals("")) toList_str = toList(r)
-        else toList_str = toList_str + "," + toList(r)
-      }
-      val outValue = new String("from{" + fromList_str + "}:to{" + toList_str + "}")
-      (pair._1, outValue)
-    })
+        fromList = fromList.sortWith((a, b) => if (a < b) true else false)
+        toList = toList.sortWith((a, b) => if (a < b) true else false)
+        var fromList_str = new String("")
+        var toList_str = new String("")
+        for (r <- 0 until fromList.size) {
+          if (fromList_str.equals("")) fromList_str = fromList(r)
+          else fromList_str = fromList_str + "," + fromList(r)
+        }
+        for (r <- 0 until toList.size) {
+          if (toList_str.equals("")) toList_str = toList(r)
+          else toList_str = toList_str + "," + toList(r)
+        }
+        val outValue = new String("from{" + fromList_str + "}:to{" + toList_str + "}")
+        (pair._1, outValue)
+      })
       .map(pair => {
         val index = pair._2.lastIndexOf(":")
         val substr = pair._2.substring(index + 4, pair._2.length - 1)
         val ll = substr.split(",")
         var value = pair._2
-        if (ll.size > 438) {
+        if (ll.contains("VertexID00016770630_31")) {
           value += "*"
         }
         (pair._1, value)
@@ -228,12 +310,12 @@ class Test extends userTest[(String, String)] with Serializable {
     val out = resultRDD.collect()
 
     for (o <- out) {
-//      logger.log(Level.INFO, o._1 + ": " + o._2)
+      //      logger.log(Level.INFO, o._1 + ": " + o._2)
       if (o._2.substring(o._2.length - 1).equals("*")) returnValue = true
     }
-    logger.log(Level.INFO, "************************ One round of Test Done ***************************")
 
-    */
+
+    /*Use delta workflow instead of recalculation
     inputRDD.collect().foreach(println)
     val finalRdd = DeltaWorkflowManager.generateNewWorkFlow(inputRDD)
     val out = finalRdd.collect()
@@ -241,6 +323,7 @@ class Test extends userTest[(String, String)] with Serializable {
       println(o)
       if (o.asInstanceOf[(String, String)]._2.substring(o.asInstanceOf[(String, String)]._2.length - 1).equals("*")) returnValue = true
     }
+    */
     return returnValue
   }
 }

@@ -1,5 +1,5 @@
 /**
- * Created by Michael on 11/23/15.
+ * Created by Michael on 4/1/16.
  */
 import java.io.{PrintWriter, File}
 import java.lang.Exception
@@ -28,7 +28,8 @@ import scala.util.control.Breaks._
 import org.apache.spark.lineage.LineageContext
 import org.apache.spark.lineage.LineageContext._
 import scala.sys.process._
-object AdjList {
+
+object AdjList_v2 {
   val LIMIT: Int = 200000
   private val exhaustive = 0
 
@@ -86,7 +87,7 @@ object AdjList {
       //spark program starts here
 
       val lines = lc.textFile("../AdjacencyList/edges_31.data", 1)
-    //  logger.log(Level.INFO, "Total data set size is " + lines.count)
+      //  logger.log(Level.INFO, "Total data set size is " + lines.count)
 
       val resultEdges = lines.filter(s => {
         val index = s.lastIndexOf(",")
@@ -192,12 +193,12 @@ object AdjList {
       lc.setCaptureLineage(false)
       Thread.sleep(1000)
 
-//      val pw = new PrintWriter(new File("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/lineageResult"))
+      //      val pw = new PrintWriter(new File("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/lineageResult"))
 
       //print out the result for debugging purpose
-//      for (o <- output_result) {
-//        println(o._1._1 + ": " + o._1._2 + " - " + o._2 + "\n")
-//      }
+      //      for (o <- output_result) {
+      //        println(o._1._1 + ": " + o._1._2 + " - " + o._2 + "\n")
+      //      }
 
       //find the lineage id of faulty results
       var listl = List[Long]()
@@ -207,12 +208,12 @@ object AdjList {
         }
       }
 
-//      print out the resulting list for debugging purposes
-//      println("*************************")
-//      for (l <- listl) {
-//        println(l)
-//      }
-//      println("*************************")
+      //      print out the resulting list for debugging purposes
+      //      println("*************************")
+      //      for (l <- listl) {
+      //        println(l)
+      //      }
+      //      println("*************************")
 
 
 
@@ -231,36 +232,34 @@ object AdjList {
       logger.log(Level.INFO, "Lineage takes " + (lineageEndTime - LineageStartTime)/1000 + " milliseconds")
       logger.log(Level.INFO, "Lineage ends at " + lineageEndTimestamp)
 
-//      linRdd.show.collect().foreach(s => {
-//        pw.append(s.toString)
-//        pw.append('\n')
-//      })
+      //      linRdd.show.collect().foreach(s => {
+      //        pw.append(s.toString)
+      //        pw.append('\n')
+      //      })
 
-//      pw.close()
-
-      linRdd = linRdd.goNext()
-
+      //      pw.close()
 
       val showMeRdd = linRdd.show().toRDD
 
-      //use the second version for the test without goNext
-      val mappedRDD = showMeRdd.map(s => {
-        val str = s.toString
-        val index = str.lastIndexOf(",")
-        val lineageID = str.substring(index + 1, str.length - 1)
-        val content = str.substring(2, index - 1)
-        val index2 = content.indexOf(",")
-        ((content.substring(0, index2), content.substring(index2 + 1)), lineageID.toLong)
-      })
 
+
+      //use this version for the test without goNext
+            val mappedRDD = showMeRdd.map(s => {
+              val str = s.toString
+              val index = str.indexOf(",")
+              val key = str.substring(0, index)
+              val value = str.substring(index + 1, str.length)
+              (key, value)
+            })
       mappedRDD.cache()
 
- //     println("MappedRDD has " + mappedRDD.count() + " records")
 
-//      val lineageResult = ctx.textFile("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/lineageResult", 1)
+      //     println("MappedRDD has " + mappedRDD.count() + " records")
 
-//      val num = lineageResult.count()
-//      logger.log(Level.INFO, "Lineage caught " + num + " records to run delta-debugging")
+      //      val lineageResult = ctx.textFile("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/lineageResult", 1)
+
+      //      val num = lineageResult.count()
+      //      logger.log(Level.INFO, "Lineage caught " + num + " records to run delta-debugging")
 
       //Remove output before delta-debugging
       val outputFile = new File("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/output")
@@ -280,32 +279,14 @@ object AdjList {
       //lineageResult.cache()
 
 
-      //this version is for test with goNext
-//      if (exhaustive == 1) {
-//        val delta_debug: DD[Any] = new DD[Any]
-//        delta_debug.ddgen(showMeRdd, new Test,
-//          new Split, lm, fh)
-//      } else {
-        val delta_debug = new DD_NonEx[(String, String), Long]
-        val returnedRDD = delta_debug.ddgen(mappedRDD, new Test, new Split, lm, fh)
-//      }
+      //this version is for test without goNext
+      val delta_debug = new DD_NonEx_v2[(String, String)]
+      val returnedRDD = delta_debug.ddgen(mappedRDD, new Test, new Split_v2, lm, fh)
 
       val ss = returnedRDD.collect
 
-      //For version of the test with goNext
-      linRdd = resultEdges.getLineage()
-      linRdd.collect
-
-      linRdd = linRdd.goBack().goBack().filter(l => {
-        if(l.asInstanceOf[((Int, Int),(Int, Int))]._1._2 == ss(0)._2.toInt){
-          println("*** => " + l)
-          true
-        }else false
-      })
-
-      linRdd = linRdd.goBackAll()
-      linRdd.collect()
-      linRdd.show()
+      //For version without goNext: to print out the result
+      ss.foreach(println)
 
       //The end of delta debugging, record time
       val DeltaDebuggingEndTime = System.nanoTime()
@@ -328,5 +309,3 @@ object AdjList {
     }
   }
 }
-
-
