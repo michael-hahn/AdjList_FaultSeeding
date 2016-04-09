@@ -1,155 +1,161 @@
-Apr 01, 2016 1:09:32 PM AdjList_noLineage$ main
-INFO: Record total time starts at 2016-04-01 13:09:32.029
-Apr 01, 2016 1:09:32 PM AdjList_noLineage$ main
-INFO: Record DeltaDebugging (unadjusted) time starts at 2016-04-01 13:09:32.402
-Apr 01, 2016 1:09:32 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 9:59:26 AM AdjList_noLineage$ main
+INFO: Record total time starts at 2016-04-05 09:59:26.809
+Apr 05, 2016 9:59:26 AM AdjList_noLineage$ main
+INFO: Record DeltaDebugging (unadjusted) time starts at 2016-04-05 09:59:26.971
+Apr 05, 2016 9:59:26 AM DD_NonEx_v2 dd_helper
 INFO: Running DD_NonEx SCALA
-Apr 01, 2016 1:11:09 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 1th run of Non-exhaustive DD, taking 96681885 microseconds
-Apr 01, 2016 1:11:09 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:01:07 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 1th run of Non-exhaustive DD, taking 100533207 microseconds
+Apr 05, 2016 10:01:07 AM DD_NonEx_v2 dd_helper
 INFO: This data size is 3731625
-Apr 01, 2016 1:11:09 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:01:07 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:12:09 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 2th run of Non-exhaustive DD, taking 60737851 microseconds
-Apr 01, 2016 1:12:09 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 1864570
-Apr 01, 2016 1:12:09 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:01:48 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 2th run of Non-exhaustive DD, taking 41379119 microseconds
+Apr 05, 2016 10:01:48 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 1866825
+Apr 05, 2016 10:01:48 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:12:25 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 3th run of Non-exhaustive DD, taking 15807175 microseconds
-Apr 01, 2016 1:12:25 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 932235
-Apr 01, 2016 1:12:25 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:02 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 3th run of Non-exhaustive DD, taking 13467868 microseconds
+Apr 05, 2016 10:02:02 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 933751
+Apr 05, 2016 10:02:02 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:12:34 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 4th run of Non-exhaustive DD, taking 8967313 microseconds
-Apr 01, 2016 1:12:34 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 466322
-Apr 01, 2016 1:12:34 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:10 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 4th run of Non-exhaustive DD, taking 8114455 microseconds
+Apr 05, 2016 10:02:10 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 466359
+Apr 05, 2016 10:02:10 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:12:44 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 5th run of Non-exhaustive DD, taking 9623282 microseconds
-Apr 01, 2016 1:12:44 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 233742
-Apr 01, 2016 1:12:44 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:17 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 5th run of Non-exhaustive DD, taking 6745517 microseconds
+Apr 05, 2016 10:02:17 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 233115
+Apr 05, 2016 10:02:17 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:12:48 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 6th run of Non-exhaustive DD, taking 4126786 microseconds
-Apr 01, 2016 1:12:48 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 117085
-Apr 01, 2016 1:12:48 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:22 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 6th run of Non-exhaustive DD, taking 5310297 microseconds
+Apr 05, 2016 10:02:22 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 116335
+Apr 05, 2016 10:02:22 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:12:52 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 7th run of Non-exhaustive DD, taking 4069079 microseconds
-Apr 01, 2016 1:12:52 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 58374
-Apr 01, 2016 1:12:52 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:30 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 7th run of Non-exhaustive DD, taking 8159682 microseconds
+Apr 05, 2016 10:02:30 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 58110
+Apr 05, 2016 10:02:30 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:00 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 8th run of Non-exhaustive DD, taking 8310915 microseconds
-Apr 01, 2016 1:13:00 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 29033
-Apr 01, 2016 1:13:00 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:38 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 8th run of Non-exhaustive DD, taking 7660634 microseconds
+Apr 05, 2016 10:02:38 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 28992
+Apr 05, 2016 10:02:38 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:05 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 9th run of Non-exhaustive DD, taking 5225436 microseconds
-Apr 01, 2016 1:13:05 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 14698
-Apr 01, 2016 1:13:05 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:42 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 9th run of Non-exhaustive DD, taking 4419816 microseconds
+Apr 05, 2016 10:02:42 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 14517
+Apr 05, 2016 10:02:42 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:09 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 10th run of Non-exhaustive DD, taking 3125006 microseconds
-Apr 01, 2016 1:13:09 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 7398
-Apr 01, 2016 1:13:09 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:47 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 10th run of Non-exhaustive DD, taking 4832706 microseconds
+Apr 05, 2016 10:02:47 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 7182
+Apr 05, 2016 10:02:47 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:17 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 11th run of Non-exhaustive DD, taking 8181520 microseconds
-Apr 01, 2016 1:13:17 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 3633
-Apr 01, 2016 1:13:17 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:02:55 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 11th run of Non-exhaustive DD, taking 7516508 microseconds
+Apr 05, 2016 10:02:55 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 3587
+Apr 05, 2016 10:02:55 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:22 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 12th run of Non-exhaustive DD, taking 5339517 microseconds
-Apr 01, 2016 1:13:22 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 1883
-Apr 01, 2016 1:13:22 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:01 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 12th run of Non-exhaustive DD, taking 6208682 microseconds
+Apr 05, 2016 10:03:01 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 1791
+Apr 05, 2016 10:03:01 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:32 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 13th run of Non-exhaustive DD, taking 10112864 microseconds
-Apr 01, 2016 1:13:32 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 944
-Apr 01, 2016 1:13:32 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:07 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 13th run of Non-exhaustive DD, taking 6206677 microseconds
+Apr 05, 2016 10:03:07 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 916
+Apr 05, 2016 10:03:07 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:42 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 14th run of Non-exhaustive DD, taking 9963067 microseconds
-Apr 01, 2016 1:13:42 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 484
-Apr 01, 2016 1:13:42 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:13 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 14th run of Non-exhaustive DD, taking 5863976 microseconds
+Apr 05, 2016 10:03:13 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 458
+Apr 05, 2016 10:03:13 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:49 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 15th run of Non-exhaustive DD, taking 6756598 microseconds
-Apr 01, 2016 1:13:49 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 235
-Apr 01, 2016 1:13:49 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:19 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 15th run of Non-exhaustive DD, taking 6263571 microseconds
+Apr 05, 2016 10:03:19 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 244
+Apr 05, 2016 10:03:19 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:13:58 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 16th run of Non-exhaustive DD, taking 9194053 microseconds
-Apr 01, 2016 1:13:58 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 120
-Apr 01, 2016 1:13:58 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:28 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 16th run of Non-exhaustive DD, taking 9218841 microseconds
+Apr 05, 2016 10:03:28 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 128
+Apr 05, 2016 10:03:28 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:14:05 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 17th run of Non-exhaustive DD, taking 6658193 microseconds
-Apr 01, 2016 1:14:05 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 63
-Apr 01, 2016 1:14:05 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:34 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 17th run of Non-exhaustive DD, taking 5742928 microseconds
+Apr 05, 2016 10:03:34 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 70
+Apr 05, 2016 10:03:34 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:14:11 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 18th run of Non-exhaustive DD, taking 6536852 microseconds
-Apr 01, 2016 1:14:11 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 30
-Apr 01, 2016 1:14:11 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:44 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 18th run of Non-exhaustive DD, taking 9719631 microseconds
+Apr 05, 2016 10:03:44 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 37
+Apr 05, 2016 10:03:44 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:14:21 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 19th run of Non-exhaustive DD, taking 9932659 microseconds
-Apr 01, 2016 1:14:21 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 8
-Apr 01, 2016 1:14:21 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:03:53 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 19th run of Non-exhaustive DD, taking 9277856 microseconds
+Apr 05, 2016 10:03:53 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 19
+Apr 05, 2016 10:03:53 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:14:28 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 20th run of Non-exhaustive DD, taking 6634731 microseconds
-Apr 01, 2016 1:14:28 PM DD_NonEx_v2 dd_helper
-INFO: This data size is 3
-Apr 01, 2016 1:14:28 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:04:02 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 20th run of Non-exhaustive DD, taking 9253663 microseconds
+Apr 05, 2016 10:04:02 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 9
+Apr 05, 2016 10:04:02 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:14:38 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 21th run of Non-exhaustive DD, taking 10099288 microseconds
-Apr 01, 2016 1:14:38 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:04:09 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 21th run of Non-exhaustive DD, taking 6194879 microseconds
+Apr 05, 2016 10:04:09 AM DD_NonEx_v2 dd_helper
+INFO: This data size is 5
+Apr 05, 2016 10:04:09 AM DD_NonEx_v2 dd_helper
+INFO: The next partition is 2
+Apr 05, 2016 10:04:18 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 22th run of Non-exhaustive DD, taking 9384550 microseconds
+Apr 05, 2016 10:04:18 AM DD_NonEx_v2 dd_helper
 INFO: This data size is 2
-Apr 01, 2016 1:14:38 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:04:18 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:14:48 PM DD_NonEx_v2 dd_helper
-INFO: Finish the 22th run of Non-exhaustive DD, taking 9931825 microseconds
-Apr 01, 2016 1:14:48 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:04:24 AM DD_NonEx_v2 dd_helper
+INFO: Finish the 23th run of Non-exhaustive DD, taking 6170958 microseconds
+Apr 05, 2016 10:04:24 AM DD_NonEx_v2 dd_helper
 INFO: This data size is 2
-Apr 01, 2016 1:14:48 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:04:24 AM DD_NonEx_v2 dd_helper
 INFO: The next partition is 2
-Apr 01, 2016 1:14:51 PM DD_NonEx_v2 dd_helper
-INFO: The #23 run is done
-Apr 01, 2016 1:14:51 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:04:27 AM DD_NonEx_v2 dd_helper
+INFO: The #24 run is done
+Apr 05, 2016 10:04:27 AM DD_NonEx_v2 dd_helper
 INFO: RDD Only Holds One Line - End of This Branch of Search
-Apr 01, 2016 1:14:51 PM DD_NonEx_v2 dd_helper
+Apr 05, 2016 10:04:27 AM DD_NonEx_v2 dd_helper
 WARNING: Delta Debugged Error inducing inputs: 
-Apr 01, 2016 1:14:51 PM DD_NonEx_v2$$anonfun$dd_helper$3 apply
-WARNING: (VertexID00010979802_31,VertexID00016770630_31)
+Apr 05, 2016 10:04:27 AM DD_NonEx_v2$$anonfun$dd_helper$3 apply
+WARNING: (VertexID00019961795_31,VertexID00016770630_31)
 
-Apr 01, 2016 1:14:51 PM DD_NonEx_v2 dd_helper
-INFO: This run takes 3368176 microseconds
-Apr 01, 2016 1:14:51 PM AdjList_noLineage$ main
-INFO: DeltaDebugging (unadjusted) ends at 2016-04-01 13:14:51.969
-Apr 01, 2016 1:14:51 PM AdjList_noLineage$ main
-INFO: DeltaDebugging (unadjusted) takes 319557382 microseconds
-Apr 01, 2016 1:14:51 PM AdjList_noLineage$ main
-INFO: Record total time: Delta-Debugging + Linegae + goNext:319930284 microseconds
+Apr 05, 2016 10:04:27 AM DD_NonEx_v2 dd_helper
+INFO: This run takes 3152802 microseconds
+Apr 05, 2016 10:04:27 AM AdjList_noLineage$ main
+INFO: DeltaDebugging (unadjusted) ends at 2016-04-05 10:04:27.932
+Apr 05, 2016 10:04:27 AM AdjList_noLineage$ main
+INFO: DeltaDebugging (unadjusted) takes 300951848 microseconds
+Apr 05, 2016 10:04:27 AM AdjList_noLineage$ main
+INFO: Record total time: Delta-Debugging + Linegae + goNext:301113987 microseconds

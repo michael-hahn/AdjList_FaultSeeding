@@ -44,7 +44,7 @@ object AdjList {
       logger.addHandler(fh)
 
       //set up spark configuration
-      val sparkConf = new SparkConf().setMaster("local[8]")
+      val sparkConf = new SparkConf().setMaster("local[6]")
       sparkConf.setAppName("AdjacencyList_FaultSeeding")
         .set("spark.executor.memory", "4g")
 
@@ -298,7 +298,7 @@ object AdjList {
 
       linRdd = linRdd.goBack().goBack().filter(l => {
         if(l.asInstanceOf[((Int, Int),(Int, Int))]._1._2 == ss(0)._2.toInt){
-          println("*** => " + l)
+//          println("*** => " + l)
           true
         }else false
       })
