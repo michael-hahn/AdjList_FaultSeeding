@@ -78,10 +78,10 @@ object AdjList {
       Seq("hadoop", "jar", "/Users/Michael/Documents/UCLA Senior/F15/Research-Fall2015/benchmark/examples/AdjList.jar", "org.apache.hadoop.examples.AdjList", "-m", "3", "-r", "1", "/Users/Michael/IdeaProjects/AdjacencyList/edges_31", "output").!!
       */
 
-      //start recording delta-debugging + lineage time + goNext
+      //start recording linege tijme
       val LineageStartTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
       val LineageStartTime = System.nanoTime()
-      logger.log(Level.INFO, "Record total time starts at " + LineageStartTimestamp)
+      logger.log(Level.INFO, "Record Lineage time starts at " + LineageStartTimestamp)
 
       //spark program starts here
 
@@ -122,10 +122,7 @@ object AdjList {
 //       }
         while (itr.hasNext) {
           breakable {
-           // println(itr.next())
-
             val str = itr.next()
-           // println(str)
             val strLength = str.length
             val index = str.indexOf(":")
             if (index == -1) {
@@ -179,7 +176,7 @@ object AdjList {
         val index = pair._2.lastIndexOf(":")
         val substr = pair._2.substring(index + 4, pair._2.length - 1)
         val ll2 = substr.split(",")
-        if (ll2.contains("VertexID00016770630_31")) value += "*"
+        if (ll2.contains("VertexID00016770630_31") && ll2.contains("VertexID00017074064_31") && ll2.contains("VertexID00019911001_31")) value += "*"
         (pair._1, value)
       })
 
@@ -243,7 +240,6 @@ object AdjList {
 
       val showMeRdd = linRdd.show().toRDD
 
-      //use the second version for the test without goNext
       val mappedRDD = showMeRdd.map(s => {
         val str = s.toString
         val index = str.lastIndexOf(",")
@@ -253,9 +249,7 @@ object AdjList {
         ((content.substring(0, index2), content.substring(index2 + 1)), lineageID.toLong)
       })
 
-      mappedRDD.cache()
-
- //     println("MappedRDD has " + mappedRDD.count() + " records")
+      println("MappedRDD has " + mappedRDD.count() + " records")
 
 //      val lineageResult = ctx.textFile("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/lineageResult", 1)
 
@@ -279,8 +273,6 @@ object AdjList {
        */
       //lineageResult.cache()
 
-
-      //this version is for test with goNext
 //      if (exhaustive == 1) {
 //        val delta_debug: DD[Any] = new DD[Any]
 //        delta_debug.ddgen(showMeRdd, new Test,
@@ -289,10 +281,8 @@ object AdjList {
         val delta_debug = new DD_NonEx[(String, String), Long]
         val returnedRDD = delta_debug.ddgen(mappedRDD, new Test, new Split, lm, fh)
 //      }
-
       val ss = returnedRDD.collect
 
-      //For version of the test with goNext
       linRdd = resultEdges.getLineage()
       linRdd.collect
 
@@ -307,14 +297,12 @@ object AdjList {
       linRdd.collect()
       linRdd.show()
 
+
       //The end of delta debugging, record time
       val DeltaDebuggingEndTime = System.nanoTime()
       val DeltaDebuggingEndTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
       logger.log(Level.INFO, "DeltaDebugging (unadjusted) ends at " + DeltaDebuggingEndTimestamp)
       logger.log(Level.INFO, "DeltaDebugging (unadjusted) takes " + (DeltaDebuggingEndTime - DeltaDebuggingStartTime)/1000 + " microseconds")
-
-      //total time
-      logger.log(Level.INFO, "Record total time: Delta-Debugging + Linegae + goNext:" + (DeltaDebuggingEndTime - LineageStartTime)/1000 + " microseconds")
 
 
       //To print out the result
@@ -328,5 +316,3 @@ object AdjList {
     }
   }
 }
-
-
