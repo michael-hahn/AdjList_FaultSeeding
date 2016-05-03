@@ -79,15 +79,14 @@ object AdjList {
       */
 
       //start recording linege tijme
-      val LineageStartTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
+//      val LineageStartTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
       val LineageStartTime = System.nanoTime()
-      logger.log(Level.INFO, "Record Lineage time starts at " + LineageStartTimestamp)
+//      logger.log(Level.INFO, "Record Lineage time starts at " + LineageStartTimestamp)
 
       //spark program starts here
 
-      val lines = lc.textFile("../AdjacencyList/edges_31.data", 1)
+      val lines = lc.textFile("../AdjacencyList/edges_31_faults.data", 1)
     //  logger.log(Level.INFO, "Total data set size is " + lines.count)
-
       val resultEdges = lines.filter(s => {
         val index = s.lastIndexOf(",")
         if (index == -1) false
@@ -171,17 +170,17 @@ object AdjList {
         (pair._1, outValue)
       })
       //this map marks the faulty result
-      .map(pair => {
-        var value = pair._2
-        val index = pair._2.lastIndexOf(":")
-        val substr = pair._2.substring(index + 4, pair._2.length - 1)
-        val ll2 = substr.split(",")
-        if (ll2.contains("VertexID00016770630_31") && ll2.contains("VertexID00017074064_31") && ll2.contains("VertexID00019911001_31")) value += "*"
-        (pair._1, value)
-      })
+//      .map(pair => {
+//        var value = pair._2
+//        val index = pair._2.lastIndexOf(":")
+//        val substr = pair._2.substring(index + 4, pair._2.length - 1)
+//        val ll2 = substr.split(",")
+//        if (ll2.contains("VertexID00016770630_31") && ll2.contains("VertexID00017074064_31") && ll2.contains("VertexID00019911001_31")) value += "*"
+//        (pair._1, value)
+//      })
 
-      val cnt = resultEdges.count()
-      logger.log(Level.INFO, "Lineage caught " + cnt + " possible faulty data records")
+//      val cnt = resultEdges.count()
+//      logger.log(Level.INFO, "Lineage caught " + cnt + " possible faulty data records")
 
       val output_result = resultEdges.collectWithId()
 
@@ -192,14 +191,20 @@ object AdjList {
 //      val pw = new PrintWriter(new File("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/lineageResult"))
 
       //print out the result for debugging purpose
-//      for (o <- output_result) {
-//        println(o._1._1 + ": " + o._1._2 + " - " + o._2 + "\n")
-//      }
+      for (o <- output_result) {
+        println(o._1._1 + ": " + o._1._2 + " - " + o._2)
+      }
 
       //find the lineage id of faulty results
       var listl = List[Long]()
       for (o <- output_result) {
-        if (o._1._2.substring(o._1._2.length - 1).equals("*")) {
+        val index = o._1._2.lastIndexOf(":")
+        val substr = o._1._2.substring(index + 4, o._1._2.length - 1)
+        val toList = substr.split(",")
+        val substr2 = o._1._2.substring(5, index - 1)
+        val fromList = substr2.split(",")
+        if (toList.contains("VertexIDA") || toList.contains("VertexIDB") || toList.contains("VertexIDC") || toList.contains("VertexIDD")
+        || fromList.contains("VertexIDA") || fromList.contains("VertexIDB") || fromList.contains("VertexIDC") || fromList.contains("VertexIDD")) {
           listl = o._2 :: listl
         }
       }
@@ -223,10 +228,10 @@ object AdjList {
       linRdd = linRdd.goBackAll()
 
       //At this stage, technically lineage has already find all the faulty data set, we record the time
-      val lineageEndTime = System.nanoTime()
-      val lineageEndTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
-      logger.log(Level.INFO, "Lineage takes " + (lineageEndTime - LineageStartTime)/1000 + " milliseconds")
-      logger.log(Level.INFO, "Lineage ends at " + lineageEndTimestamp)
+//      val lineageEndTime = System.nanoTime()
+//      val lineageEndTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
+//      logger.log(Level.INFO, "Lineage takes " + (lineageEndTime - LineageStartTime)/1000 + " milliseconds")
+//      logger.log(Level.INFO, "Lineage ends at " + lineageEndTimestamp)
 
 //      linRdd.show.collect().foreach(s => {
 //        pw.append(s.toString)
@@ -235,21 +240,28 @@ object AdjList {
 
 //      pw.close()
 
-      linRdd = linRdd.goNext()
+//      linRdd = linRdd.goNext()
 
 
-      val showMeRdd = linRdd.show().toRDD
+      val showMeRdd = linRdd.show()
+
+//      val mappedRDD = showMeRdd.map(s => {
+      //        val str = s.toString
+      //        val index = str.lastIndexOf(",")
+      //        val lineageID = str.substring(index + 1, str.length - 1)
+      //        val content = str.substring(2, index - 1)
+      //        val index2 = content.indexOf(",")
+      //        ((content.substring(0, index2), content.substring(index2 + 1)), lineageID.toLong)
+      //      })
+      //
+      //      println("MappedRDD has " + mappedRDD.count() + " records")
 
       val mappedRDD = showMeRdd.map(s => {
-        val str = s.toString
-        val index = str.lastIndexOf(",")
-        val lineageID = str.substring(index + 1, str.length - 1)
-        val content = str.substring(2, index - 1)
-        val index2 = content.indexOf(",")
-        ((content.substring(0, index2), content.substring(index2 + 1)), lineageID.toLong)
+        val index = s.lastIndexOf(",")
+        val outEdge = s.substring(0, index)
+        val inEdge = s.substring(index + 1)
+        (outEdge, inEdge)
       })
-
-      println("MappedRDD has " + mappedRDD.count() + " records")
 
 //      val lineageResult = ctx.textFile("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/lineageResult", 1)
 
@@ -257,16 +269,16 @@ object AdjList {
 //      logger.log(Level.INFO, "Lineage caught " + num + " records to run delta-debugging")
 
       //Remove output before delta-debugging
-      val outputFile = new File("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/output")
-      if (outputFile.isDirectory) {
-        for (list <- Option(outputFile.listFiles()); child <- list) child.delete()
-      }
-      outputFile.delete
+//      val outputFile = new File("/Users/Michael/IdeaProjects/AdjList_FaultSeeding/output")
+//      if (outputFile.isDirectory) {
+//        for (list <- Option(outputFile.listFiles()); child <- list) child.delete()
+//      }
+//      outputFile.delete
 
       //start recording delta debugging time
-      val DeltaDebuggingStartTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
-      val DeltaDebuggingStartTime = System.nanoTime()
-      logger.log(Level.INFO, "Record DeltaDebugging (unadjusted) time starts at " + DeltaDebuggingStartTimestamp)
+//      val DeltaDebuggingStartTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
+//      val DeltaDebuggingStartTime = System.nanoTime()
+//      logger.log(Level.INFO, "Record DeltaDebugging (unadjusted) time starts at " + DeltaDebuggingStartTimestamp)
 
       /* *****************
        * *************
@@ -278,33 +290,36 @@ object AdjList {
 //        delta_debug.ddgen(showMeRdd, new Test,
 //          new Split, lm, fh)
 //      } else {
-        val delta_debug = new DD_NonEx[(String, String), Long]
-        val returnedRDD = delta_debug.ddgen(mappedRDD, new Test, new Split, lm, fh)
+        val delta_debug = new DD_NonEx_v2[(String, String)]
+        val returnedRDD = delta_debug.ddgen(mappedRDD, new Test, new Split_v2, lm, fh)
 //      }
-      val ss = returnedRDD.collect
+//      val ss = returnedRDD.collect
+//      ss.foreach(println)
 
-      linRdd = resultEdges.getLineage()
-      linRdd.collect
+//      linRdd = resultEdges.getLineage()
+//      linRdd.collect
+//
+//      linRdd = linRdd.goBack().goBack().filter(l => {
+//        if(l.asInstanceOf[((Int, Int),(Int, Int))]._1._2 == ss(0)._2.toInt){
+//          println("*** => " + l)
+//          true
+//        }else false
+//      })
+//
+//      linRdd = linRdd.goBackAll()
+//      linRdd.collect()
+//      linRdd.show()
+//
+//
+//      //The end of delta debugging, record time
+//      val DeltaDebuggingEndTime = System.nanoTime()
+//      val DeltaDebuggingEndTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
+//      logger.log(Level.INFO, "DeltaDebugging (unadjusted) ends at " + DeltaDebuggingEndTimestamp)
+//      logger.log(Level.INFO, "DeltaDebugging (unadjusted) takes " + (DeltaDebuggingEndTime - DeltaDebuggingStartTime)/1000 + " microseconds")
+//
 
-      linRdd = linRdd.goBack().goBack().filter(l => {
-        if(l.asInstanceOf[((Int, Int),(Int, Int))]._1._2 == ss(0)._2.toInt){
-          println("*** => " + l)
-          true
-        }else false
-      })
-
-      linRdd = linRdd.goBackAll()
-      linRdd.collect()
-      linRdd.show()
-
-
-      //The end of delta debugging, record time
-      val DeltaDebuggingEndTime = System.nanoTime()
-      val DeltaDebuggingEndTimestamp = new java.sql.Timestamp(Calendar.getInstance.getTime.getTime)
-      logger.log(Level.INFO, "DeltaDebugging (unadjusted) ends at " + DeltaDebuggingEndTimestamp)
-      logger.log(Level.INFO, "DeltaDebugging (unadjusted) takes " + (DeltaDebuggingEndTime - DeltaDebuggingStartTime)/1000 + " microseconds")
-
-
+      val endTime = System.nanoTime()
+      logger.log(Level.INFO, "Record total time: Delta-Debugging + Linegae + goNext:" + (endTime - LineageStartTime)/1000 + " microseconds")
       //To print out the result
       //    for (tuple <- output) {
       //      println(tuple._1 + ": " + tuple._2)
