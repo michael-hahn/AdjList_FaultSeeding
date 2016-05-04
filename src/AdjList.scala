@@ -290,8 +290,9 @@ object AdjList {
 //        delta_debug.ddgen(showMeRdd, new Test,
 //          new Split, lm, fh)
 //      } else {
-        val delta_debug = new DD_NonEx_v2[(String, String)]
-        val returnedRDD = delta_debug.ddgen(mappedRDD, new Test, new Split_v2, lm, fh)
+//      val delta_debug = new DD_NonEx_v2[(String, String)]
+      val delta_debug_EX = new DD[(String, String)]
+      val returnedRDD = delta_debug_EX.ddgen(mappedRDD, new Test, new Split_v2, lm, fh)
 //      }
 //      val ss = returnedRDD.collect
 //      ss.foreach(println)
