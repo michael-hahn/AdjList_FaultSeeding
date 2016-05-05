@@ -85,6 +85,8 @@ class DD [T: ClassTag] {
 //          localRdd.collect().foreach(s=> {
 //            logger.log(Level.WARNING, s.toString + "\n")
 //          })
+          runningOnCluster = true
+          break
         }
 
         println(s""">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $sizeRdd <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<""")
@@ -111,7 +113,7 @@ class DD [T: ClassTag] {
           logger.log(Level.INFO, "RDD Only Holds One Line - End of This Branch of Search")
           logger.log(Level.INFO, "Delta Debugged Error inducing inputs: ")
           rdd.collect().foreach(s=> {
-            logger.log(Level.WARNING, s.toString + "\n")
+            logger.log(Level.WARNING, s.toString + "* * \n")
           })
           logger.log(Level.INFO, "Time : " + (endTime - startTime)/1000)
           break
@@ -174,7 +176,7 @@ class DD [T: ClassTag] {
             logger.log(Level.INFO, "Size : " + sizeRdd)
             logger.log(Level.INFO, "Delta Debugged Error inducing inputs: ")
             rdd.collect().foreach(s=> {
-              logger.log(Level.WARNING, s.toString + "\n")
+              logger.log(Level.WARNING, s.toString + "^ ^ \n")
             })
             logger.log(Level.INFO, "Time : " + (endTime - startTime)/1000)
             break
@@ -200,11 +202,10 @@ class DD [T: ClassTag] {
                 lm: LogManager,
                 fh: FileHandler) : RDD[T] = {
 
-    println(">>>>>>>>>> Moving To Local Computation <<<<<<<<<<<")
     val logger: Logger = Logger.getLogger(getClass.getName)
     logger.addHandler(fh)
 
-    logger.log(Level.INFO, "Running DD_Ex SCALA")
+    logger.log(Level.INFO, ">>>>>>>>>> In Local Computation <<<<<<<<<<<")
 
     var rdd = inputRDD
     var partitions = numberOfPartitions
@@ -243,7 +244,7 @@ class DD [T: ClassTag] {
           logger.log(Level.INFO, "RDD Only Holds One Line - End of This Branch of Search")
           logger.log(Level.INFO, "Delta Debugged Error inducing inputs: ")
           rdd.foreach(s=> {
-            logger.log(Level.WARNING, s.toString + "\n")
+            logger.log(Level.WARNING, s.toString + "& & \n")
           })
           logger.log(Level.INFO, "Time : " + (endTime - startTime)/1000)
           break
@@ -295,7 +296,7 @@ class DD [T: ClassTag] {
             logger.log(Level.INFO, "Size : " + sizeRdd)
             logger.log(Level.INFO, "Delta Debugged Error inducing inputs: ")
             rdd.foreach(s=> {
-              logger.log(Level.WARNING, s.toString + "\n")
+              logger.log(Level.WARNING, s.toString + "$ $ \n")
             })
             logger.log(Level.INFO, "Time : " + (endTime - startTime)/1000)
             break
@@ -308,6 +309,7 @@ class DD [T: ClassTag] {
         partitions = next_partitions
       }
     }
+    logger.log(Level.INFO, ">>>>>>>>>> Local Computation Ended <<<<<<<<<<<")
     null
   }
 
