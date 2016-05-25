@@ -86,7 +86,6 @@ object AdjList {
       //spark program starts here
 
       val lines = lc.textFile("../AdjacencyList/edges_31_faults.data", 1)
-    //  logger.log(Level.INFO, "Total data set size is " + lines.count)
       val resultEdges = lines.filter(s => {
         val index = s.lastIndexOf(",")
         if (index == -1) false

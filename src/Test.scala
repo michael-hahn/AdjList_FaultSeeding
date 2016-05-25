@@ -142,6 +142,7 @@ class Test extends userTest[(String, String)] with Serializable {
     //assume that test will pass (which returns false)
     var returnValue = false
 
+    val start = System.nanoTime
     val finalRDD = inputRDD
       .flatMap(s => {
         val listOfEdges: MutableList[(String, String)] = MutableList()
@@ -219,7 +220,9 @@ class Test extends userTest[(String, String)] with Serializable {
       })
 
     val out = finalRDD
+    logger.log(Level.INFO, "LTimeTest : " + (System.nanoTime() - start) / 1000)
     num = num +1
+    logger.log(Level.INFO, "LTestRuns : " + num)
     println(s""" >>>>>>>>>>>>>>>>>>>>>>>>>> The number of runs are $num <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,""")
 
     for (o <- out) {

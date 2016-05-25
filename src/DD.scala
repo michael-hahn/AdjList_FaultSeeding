@@ -19,7 +19,7 @@ import scala.util.control.Breaks._
 class DD [T: ClassTag] {
   var dd_data_threshold = 1
   var dd_movetolocal_threshold = 500
-  var runningOnCluster = true;
+  var runningOnCluster = true
   def setRecordsThreshold(size:Int): Unit ={
     dd_data_threshold = size
   }
@@ -79,15 +79,12 @@ class DD [T: ClassTag] {
         logger.log(Level.INFO, "1Runs :" + runTime)
         logger.log(Level.INFO, "1Size : " + sizeRdd)
 
-        if( sizeRdd  < dd_movetolocal_threshold && runningOnCluster){
-          runningOnCluster = false
-          val localRdd = localRDD(rdd.collect() , numberOfPartitions , testFunc , splitFunc , lm , fh)
-//          localRdd.collect().foreach(s=> {
-//            logger.log(Level.WARNING, s.toString + "\n")
-//          })
-          runningOnCluster = true
-          break
-        }
+//        if( sizeRdd  < dd_movetolocal_threshold && runningOnCluster){
+//          runningOnCluster = false
+//          val localRdd = localRDD(rdd.collect() , numberOfPartitions , testFunc , splitFunc , lm , fh)
+//          runningOnCluster = true
+//          break
+//        }
 
         println(s""">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $sizeRdd <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<""")
 
@@ -223,17 +220,17 @@ class DD [T: ClassTag] {
         val sizeRdd = rdd.length
         bar_offset = subrdd.bar
         partitions = subrdd.partition
-        logger.log(Level.INFO, "1Runs :" + runTime)
-        logger.log(Level.INFO, "1Size : " + sizeRdd)
+        logger.log(Level.INFO, "L1Runs :" + runTime)
+        logger.log(Level.INFO, "L1Size : " + sizeRdd)
 
         println(s""">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $sizeRdd <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<""")
         val assertResult = test(rdd, testFunc, lm, fh)
         runTime = runTime + 1
         if (!assertResult) {
           val endTime: Long = System.nanoTime
-          logger.log(Level.INFO, "Runs : " + runTime)
-          logger.log(Level.INFO, "Time : " + (endTime - startTime) / 1000)
-          logger.log(Level.INFO, "Size : " + sizeRdd)
+          logger.log(Level.INFO, "LRuns : " + runTime)
+          logger.log(Level.INFO, "LTime : " + (endTime - startTime) / 1000)
+          logger.log(Level.INFO, "LSize : " + sizeRdd)
           break
         }
 
@@ -246,7 +243,7 @@ class DD [T: ClassTag] {
           rdd.foreach(s=> {
             logger.log(Level.WARNING, s.toString + "& & \n")
           })
-          logger.log(Level.INFO, "Time : " + (endTime - startTime)/1000)
+          logger.log(Level.INFO, "LTime : " + (endTime - startTime)/1000)
           break
         }
         //println("Spliting now...")
@@ -291,14 +288,14 @@ class DD [T: ClassTag] {
           val rddSize = rdd.length
           if (rddSize <= 2) {
             val endTime = System.nanoTime()
-            logger.log(Level.INFO, "Run : " + runTime)
+            logger.log(Level.INFO, "LRun : " + runTime)
             logger.log(Level.INFO, "End of This Branch of Search")
-            logger.log(Level.INFO, "Size : " + sizeRdd)
+            logger.log(Level.INFO, "LSize : " + sizeRdd)
             logger.log(Level.INFO, "Delta Debugged Error inducing inputs: ")
             rdd.foreach(s=> {
               logger.log(Level.WARNING, s.toString + "$ $ \n")
             })
-            logger.log(Level.INFO, "Time : " + (endTime - startTime)/1000)
+            logger.log(Level.INFO, "LTime : " + (endTime - startTime)/1000)
             break
           }
           next_partitions = Math.min(rdd.length, partitions * 2)
